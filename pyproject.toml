@@ -1,0 +1,6 @@
+[project]
+name = "ai-research-assistant"
+version = "0.1.0"
+description = "Production-style AI Research Assistant built from scratch."
+requires-python = ">=3.12"
+dependencies = []
