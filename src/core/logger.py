@@ -1,15 +1,30 @@
 import logging
 
-logger = logging.getLogger("ai_research_assistant")
 
-logger.setLevel(logging.INFO)
+def get_logger(name: str) -> logging.Logger:
+    """
+    Create and configure a logger.
 
-handler = logging.StreamHandler()
+    Args:
+        name: Usually __name__ of the calling module.
 
-formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+    Returns:
+        Configured logger.
+    """
 
-handler.setFormatter(formatter)
+    logger = logging.getLogger(name)
 
-logger.addHandler(handler)
+    if not logger.handlers:
+        logger.setLevel(logging.INFO)
+
+        handler = logging.StreamHandler()
+
+        formatter = logging.Formatter(
+            "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+        )
+
+        handler.setFormatter(formatter)
+
+        logger.addHandler(handler)
+
+    return logger

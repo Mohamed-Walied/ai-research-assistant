@@ -1,16 +1,16 @@
 from abc import ABC, abstractmethod
 
-from .models import LLMResponse
+from .models import LLMRequest, LLMResponse
 
 
 class BaseLLM(ABC):
     """
-    Abstract interface for all LLM providers.
+    Interface implemented by every LLM provider.
     """
 
     @abstractmethod
-    def generate(self, prompt: str) -> LLMResponse:
+    def generate(self, request: LLMRequest) -> LLMResponse:
         """
-        Generate a response from the model.
+        Generate text from an LLM.
         """
-        pass
+        raise NotImplementedError

@@ -1,7 +1,10 @@
 from .base import BaseLLM
-from .models import LLMResponse
+from .gemini import GeminiClient
+from .models import LLMRequest, LLMResponse
 
 __all__ = [
     "BaseLLM",
+    "GeminiClient",
+    "LLMRequest",
     "LLMResponse",
 ]
