@@ -12,4 +12,4 @@ def test_logger_is_logger():
 def test_logger_name():
     logger = get_logger("test")
 
-    assert logger.name == "test"git add .
+    assert logger.name == "test"
