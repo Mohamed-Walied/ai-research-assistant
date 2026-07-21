@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass(slots=True)
 class AgentRequest:
     """
-    Input to the agent.
+    User request.
     """
 
     query: str
@@ -13,7 +13,17 @@ class AgentRequest:
 @dataclass(slots=True)
 class AgentResponse:
     """
-    Output from the agent.
+    Final answer returned by the agent.
     """
 
+    answer: str
+
+
+@dataclass(slots=True)
+class TaskResult:
+    """
+    Result of executing a single task.
+    """
+
+    task: str
     answer: str

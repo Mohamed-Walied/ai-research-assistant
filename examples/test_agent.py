@@ -1,26 +1,26 @@
 from src.agent import AgentRequest, ResearchAgent
 from src.llm import GeminiClient
+from src.planner import Planner
 from src.prompts import PromptManager
 
+llm = GeminiClient()
+prompt_manager = PromptManager()
 
-def main():
-    llm = GeminiClient()
+planner = Planner(
+    llm=llm,
+    prompt_manager=prompt_manager,
+)
 
-    prompts = PromptManager()
+agent = ResearchAgent(
+    llm=llm,
+    prompt_manager=prompt_manager,
+    planner=planner,
+)
 
-    agent = ResearchAgent(
-        llm=llm,
-        prompt_manager=prompts,
+response = agent.run(
+    AgentRequest(
+        query="Explain CNN and Vision Transformer then compare them."
     )
+)
 
-    response = agent.run(
-        AgentRequest(
-            query="Explain Retrieval-Augmented Generation."
-        )
-    )
-
-    print(response.answer)
-
-
-if __name__ == "__main__":
-    main()
+print(response.answer)
