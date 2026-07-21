@@ -4,27 +4,23 @@ import logging
 def get_logger(name: str) -> logging.Logger:
     """
     Create and configure a logger.
-
-    Args:
-        name: Usually __name__ of the calling module.
-
-    Returns:
-        Configured logger.
     """
 
     logger = logging.getLogger(name)
 
-    if not logger.handlers:
-        logger.setLevel(logging.INFO)
+    if logger.handlers:
+        return logger
 
-        handler = logging.StreamHandler()
+    logger.setLevel(logging.INFO)
 
-        formatter = logging.Formatter(
-            "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-        )
+    handler = logging.StreamHandler()
 
-        handler.setFormatter(formatter)
+    formatter = logging.Formatter(
+        "[%(levelname)s] %(message)s"
+    )
 
-        logger.addHandler(handler)
+    handler.setFormatter(formatter)
+
+    logger.addHandler(handler)
 
     return logger

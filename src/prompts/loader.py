@@ -14,10 +14,10 @@ class PromptLoader:
         Load a template file.
 
         Example:
-            load("research_summary")
+            load("summary")
 
         Looks for:
-            templates/research_summary.md
+            templates/summary.md
         """
 
         file_path = self.template_dir / f"{template_name}.md"

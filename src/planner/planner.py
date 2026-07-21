@@ -1,5 +1,6 @@
 from src.llm import BaseLLM, LLMRequest
 from src.prompts import PromptManager
+import re
 
 from .models import Plan, Task
 from .prompts import PLANNER_TEMPLATE
@@ -38,6 +39,9 @@ class Planner:
             response.content
         )
 
+        if not tasks:
+            tasks = [Task(description=query)]
+
         return Plan(tasks=tasks)
 
     def _parse_response(
@@ -57,12 +61,17 @@ class Planner:
             if not line:
                 continue
 
-            line = line.lstrip(
-                "-•1234567890. "
-            )
+            cleaned = re.sub(
+                r"^(?:[-*•]|\d+[.)])\s*",
+                "",
+                line,
+            ).strip()
+
+            if not cleaned:
+                continue
 
             tasks.append(
-                Task(description=line)
+                Task(description=cleaned)
             )
 
         return tasks

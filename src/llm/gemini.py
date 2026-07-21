@@ -17,18 +17,27 @@ class GeminiClient(BaseLLM):
 
     def generate(self, request: LLMRequest) -> LLMResponse:
 
+        temperature = (
+            request.temperature
+            if request.temperature is not None
+            else settings.TEMPERATURE
+        )
+        max_output_tokens = (
+            request.max_output_tokens
+            if request.max_output_tokens is not None
+            else settings.MAX_OUTPUT_TOKENS
+        )
+
         response = self.client.models.generate_content(
             model=self.model,
             contents=request.prompt,
             config=types.GenerateContentConfig(
-                temperature=request.temperature
-                or settings.TEMPERATURE,
-                max_output_tokens=request.max_output_tokens
-                or settings.MAX_OUTPUT_TOKENS,
+                temperature=temperature,
+                max_output_tokens=max_output_tokens,
             ),
         )
 
         return LLMResponse(
-            content=response.text,
+            content=response.text or "",
             model=self.model,
         )
